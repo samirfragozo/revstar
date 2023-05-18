@@ -5,7 +5,7 @@ export default function Show({
     auth,
     company,
 }) {
-    const title = `Actualizar Empresa - ${company.name}`;
+    const title = `Actualizar Empresa: ${company.name}`;
     const {
         data,
         patch,
