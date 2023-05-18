@@ -1,14 +1,19 @@
 import {Link, useForm} from '@inertiajs/react';
+import pluralize       from 'pluralize';
 
 export default function Table({
     routesKey,
+    routesParameters = {},
     rows,
     values,
 }) {
     const {delete: destroy} = useForm();
 
     const handleDelete = async (value) => {
-        destroy(route(`${routesKey}.destroy`, value.id), {
+        destroy(route(`${routesKey}.destroy`, {
+            ...routesParameters,
+            [pluralize.singular(routesKey)]: value.id,
+        }), {
             preserveScroll: true,
             onSuccess:      () => alert('Eliminado correctamente'),
             onError:        () => () => alert('Ha ocurrido un error'),
@@ -47,13 +52,19 @@ export default function Table({
                         ))}
                         <Td>
                             <Link
-                                href={route(`${routesKey}.show`, value.id)}
+                                href={route(`${routesKey}.show`, {
+                                    ...routesParameters,
+                                    [pluralize.singular(routesKey)]: value.id,
+                                })}
                                 className="text-blue-600 hover:text-blue-900 mr-2"
                             >
                                 Ver
                             </Link>
                             <Link
-                                href={route(`${routesKey}.edit`, value.id)}
+                                href={route(`${routesKey}.edit`, {
+                                    ...routesParameters,
+                                    [pluralize.singular(routesKey)]: value.id,
+                                })}
                                 className="text-green-600 hover:text-green-900 mr-2"
                             >
                                 Editar

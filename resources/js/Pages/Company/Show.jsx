@@ -51,16 +51,19 @@ export default function Show({
                     <div className="flex justify-between items-center">
                         <h2 className="font-semibold text-xl text-gray-800 leading-tight">Inventario</h2>
                         <Link
-                            href={route('companies.edit', company.id)}
+                            href={route('products.create', company.id)}
                             className="px-4 py-2 font-semibold text-white bg-gray-800 rounded-lg shadow-md hover:bg-gray-700"
                         >
-                            Editar Empresa
+                            Añadir Artículos
                         </Link>
                     </div>
 
                     <div className="bg-white shadow sm:rounded-lg">
                         <Table
-                            routesKey="companies"
+                            routesKey="products"
+                            routesParameters={{
+                                company: company.id,
+                            }}
                             rows={{
                                 name:     'Nombre',
                                 quantity: 'Cantidad',

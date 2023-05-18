@@ -1,11 +1,12 @@
 import {useForm} from '@inertiajs/react';
-import Form      from '@/Pages/Company/Partials/Form.jsx';
+import Form      from '@/Pages/Company/Product/Partials/Form.jsx';
 
 export default function Show({
     auth,
     company,
+    product,
 }) {
-    const title = `Actualizar Empresa: ${company.name}`;
+    const title = `Actualizar Articulo: ${product.name}`;
     const {
         data,
         patch,
@@ -13,27 +14,30 @@ export default function Show({
         errors,
         processing,
     } = useForm({
-        address: company.address,
-        name:    company.name,
-        nit:     company.nit,
-        phone:   company.phone,
+        description: product.description,
+        name:        product.name,
+        quantity:    product.quantity,
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        patch(route('companies.update', company.id));
+        patch(route('products.update', {
+            company: company.id,
+            product: product.id,
+        }));
     };
 
     return (
         <Form
             auth={auth}
-            buttonName="Actualizar Empresa"
+            buttonName="Actualizar Articulo"
             data={data}
             errors={errors}
             handleSubmit={handleSubmit}
             setData={setData}
             processing={processing}
+            routeId={company.id}
             title={title}
         />
     );

@@ -1,8 +1,11 @@
 import {useForm} from '@inertiajs/react';
-import Form      from '@/Pages/Company/Partials/Form.jsx';
+import Form      from '@/Pages/Company/Product/Partials/Form.jsx';
 
-export default function Show({auth}) {
-    const title = 'Crear Empresa';
+export default function Show({
+    auth,
+    company,
+}) {
+    const title = 'Crear Articulo';
     const {
         data,
         post,
@@ -10,16 +13,15 @@ export default function Show({auth}) {
         errors,
         processing,
     } = useForm({
-        address: '',
-        name:    '',
-        nit:     '',
-        phone:   '',
+        description: '',
+        name:        '',
+        quantity:    '',
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        post(route('companies.store'));
+        post(route('products.store', company.id));
     };
 
     return (
@@ -31,6 +33,7 @@ export default function Show({auth}) {
             handleSubmit={handleSubmit}
             setData={setData}
             processing={processing}
+            routeId={company.id}
             title={title}
         />
     );
