@@ -12,10 +12,10 @@ class UpdateCompanyRequest extends FormRequest
         $company = $this->route('company');
 
         return [
-            'nit' => ['required', 'max:10', Rule::unique('companies')->ignore($company)],
-            'name'     => ['required', 'max:255'],
-            'address'  => ['required', 'max:255'],
-            'phone'    => ['nullable', 'max:10'],
+            'nit'     => ['required', 'integer', 'digits_between:8,12', Rule::unique('companies')->ignore($company)],
+            'name'    => ['required', 'string', 'between:5,255'],
+            'address' => ['required', 'string', 'between:5,255'],
+            'phone'   => ['nullable', 'string', 'between:5,15'],
         ];
     }
 }

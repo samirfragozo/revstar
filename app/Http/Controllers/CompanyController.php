@@ -36,9 +36,9 @@ class CompanyController extends Controller
         return Inertia::render('Company/Show', ['company' => $company]);
     }
 
-    public function edit(Company $company): View
+    public function edit(Company $company): Response
     {
-        return view('companies.edit', compact('company'));
+        return Inertia::render('Company/Edit', ['company' => $company]);
     }
 
     public function update(UpdateCompanyRequest $request, Company $company): RedirectResponse
