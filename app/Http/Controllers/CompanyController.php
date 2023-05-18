@@ -33,6 +33,8 @@ class CompanyController extends Controller
 
     public function show(Company $company): Response
     {
+        $company->load('products');
+
         return Inertia::render('Company/Show', ['company' => $company]);
     }
 
