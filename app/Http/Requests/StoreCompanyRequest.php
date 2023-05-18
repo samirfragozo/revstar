@@ -10,10 +10,10 @@ class StoreCompanyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nit' => ['required', 'max:10', Rule::unique('companies')],
-            'name'     => ['required', 'max:255'],
-            'address'  => ['required', 'max:255'],
-            'phone'    => ['nullable', 'max:10'],
+            'nit' => ['required', 'integer', 'digits_between:8,12', Rule::unique('companies')],
+            'name'     => ['required', 'string', 'between:5,255'],
+            'address'  => ['required', 'string', 'between:5,255'],
+            'phone'    => ['nullable', 'integer', 'digits_between:7,12'],
         ];
     }
 }

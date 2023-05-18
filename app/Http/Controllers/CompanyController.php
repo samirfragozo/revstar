@@ -19,9 +19,9 @@ class CompanyController extends Controller
         return Inertia::render('Company/Index', ['companies' => $companies]);
     }
 
-    public function create(): View
+    public function create(): Response
     {
-        return view('companies.create');
+        return Inertia::render('Company/Create');
     }
 
     public function store(StoreCompanyRequest $request): RedirectResponse
