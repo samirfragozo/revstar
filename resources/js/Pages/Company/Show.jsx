@@ -1,6 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {Head, Link}        from '@inertiajs/react';
-import Table               from '@/Pages/Company/Partials/Table.jsx';
+import Table               from '@/Pages/Partials/Table.jsx';
 
 export default function Show({
     auth,

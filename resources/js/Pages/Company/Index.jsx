@@ -1,36 +1,12 @@
-import AuthenticatedLayout   from '@/Layouts/AuthenticatedLayout';
-import {Head, Link, useForm} from '@inertiajs/react';
-import Table                 from '@/Pages/Company/Partials/Table.jsx';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import {Head, Link}        from '@inertiajs/react';
+import Table               from '@/Pages/Partials/Table.jsx';
 
 export default function Index({
     auth,
     companies,
 }) {
     const title = 'Empresas';
-    const {delete: destroy} = useForm();
-
-    const handleDelete = async (company) => {
-        destroy(route('companies.destroy', company.id), {
-            preserveScroll: true,
-            onSuccess:      () => alert('Empresa eliminada correctamente'),
-            onError:        () => () => alert('Ha ocurrido un erro mientras se eliminaba la orden'),
-        });
-    };
-
-    const Td = ({children}) => (
-        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-            {children}
-        </td>
-    );
-
-    const Th = ({children}) => (
-        <th
-            scope="col"
-            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-        >
-            {children}
-        </th>
-    );
 
     return (
         <AuthenticatedLayout
