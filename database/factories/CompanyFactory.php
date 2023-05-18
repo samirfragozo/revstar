@@ -13,7 +13,7 @@ class CompanyFactory extends Factory
     public function definition(): array
     {
         return [
-            'document' => $this->faker->unique()->numerify('##########'),
+            'nit' => $this->faker->unique()->numerify('##########'),
             'name' => $this->faker->company,
             'address' => $this->faker->address,
             'phone' => $this->faker->phoneNumber,

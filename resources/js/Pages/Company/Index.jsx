@@ -55,7 +55,7 @@ export default function Index({
                                 <tbody className="bg-white divide-y divide-gray-200">
                                 {companies.map((company) => (
                                     <tr key={company.id}>
-                                        <Td>{company.document}</Td>
+                                        <Td>{company.nit}</Td>
                                         <Td>{company.name}</Td>
                                         <Td>{company.address}</Td>
                                         <Td>{company.phone}</Td>

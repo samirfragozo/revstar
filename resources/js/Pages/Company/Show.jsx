@@ -30,7 +30,7 @@ export default function Show({
                     <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                         <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                             <div className="px-6 py-3 bg-white">
-                                <Field name="NIT" value={company.document}/>
+                                <Field name="NIT" value={company.nit}/>
                                 <Field name="Nombre" value={company.name}/>
                                 <Field name="Dirección" value={company.address}/>
                                 <Field name="Teléfono" value={company.phone} border={false}/>
