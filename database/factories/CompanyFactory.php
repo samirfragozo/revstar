@@ -13,10 +13,10 @@ class CompanyFactory extends Factory
     public function definition(): array
     {
         return [
-            'nit' => $this->faker->unique()->numerify('##########'),
-            'name' => $this->faker->company,
+            'nit'     => $this->faker->unique()->numerify('##########'),
+            'name'    => $this->faker->company,
             'address' => $this->faker->address,
-            'phone' => $this->faker->phoneNumber,
+            'phone'   => $this->faker->phoneNumber,
         ];
     }
 }
