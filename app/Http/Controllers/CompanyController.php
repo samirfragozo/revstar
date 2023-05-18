@@ -31,9 +31,9 @@ class CompanyController extends Controller
         return redirect()->route('companies.index');
     }
 
-    public function show(Company $company): View
+    public function show(Company $company): Response
     {
-        return view('companies.show', compact('company'));
+        return Inertia::render('Company/Show', ['company' => $company]);
     }
 
     public function edit(Company $company): View
