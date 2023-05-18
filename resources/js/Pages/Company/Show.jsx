@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import {Head}              from '@inertiajs/react';
+import {Head, Link}        from '@inertiajs/react';
 
 export default function Show({
     auth,
@@ -27,6 +27,15 @@ export default function Show({
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                    <div className="flex justify-end items-center">
+                        <Link
+                            href={route('companies.edit', company.id)}
+                            className="px-4 py-2 font-semibold text-white bg-gray-800 rounded-lg shadow-md hover:bg-gray-700"
+                        >
+                            Editar Empresa
+                        </Link>
+                    </div>
+
                     <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                         <div className="mt-6 space-y-6">
                             <Field name="NIT" value={company.nit}/>
