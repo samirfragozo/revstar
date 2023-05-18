@@ -1,23 +1,42 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import {Head, Link, useForm}        from '@inertiajs/react';
+import AuthenticatedLayout   from '@/Layouts/AuthenticatedLayout';
+import {Head, Link, useForm} from '@inertiajs/react';
 
-export default function Index({ auth, companies }) {
-    const { delete: destroy } = useForm();
+export default function Index({
+    auth,
+    companies,
+}) {
+    const title = 'Empresas';
+    const {delete: destroy} = useForm();
 
     const handleDelete = async (company) => {
         destroy(route('companies.destroy', company.id), {
             preserveScroll: true,
-            onSuccess: () => alert('Order placed successfully!'),
-            onError: () => () => alert('An error occurred while processing the order.'),
+            onSuccess:      () => alert('Empresa eliminada correctamente'),
+            onError:        () => () => alert('Ha ocurrido un erro mientras se eliminaba la orden'),
         });
     };
+
+    const Td = ({children}) => (
+        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            {children}
+        </td>
+    );
+
+    const Th = ({children}) => (
+        <th
+            scope="col"
+            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+        >
+            {children}
+        </th>
+    );
 
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Companies</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">{title}</h2>}
         >
-            <Head title="Companies"/>
+            <Head title={title}/>
 
             <div className="m-4 flex flex-col">
                 <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -26,36 +45,20 @@ export default function Index({ auth, companies }) {
                             <table className="min-w-full divide-y divide-gray-200">
                                 <thead className="bg-gray-50">
                                 <tr>
-                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Nit
-                                    </th>
-                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Nombre
-                                    </th>
-                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Dirección
-                                    </th>
-                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Teléfono
-                                    </th>
-                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+                                    <Th>Nit</Th>
+                                    <Th>Nombre</Th>
+                                    <Th>Dirección</Th>
+                                    <Th>Teléfono</Th>
+                                    <Th/>
                                 </tr>
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
-                                {companies.data.map((company) => (
+                                {companies.map((company) => (
                                     <tr key={company.id}>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {company.document}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {company.name}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {company.address}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {company.phone}
-                                        </td>
+                                        <Td>{company.document}</Td>
+                                        <Td>{company.name}</Td>
+                                        <Td>{company.address}</Td>
+                                        <Td>{company.phone}</Td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                             <Link
                                                 href={`/companies/${company.id}`}
