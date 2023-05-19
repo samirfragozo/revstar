@@ -127,9 +127,8 @@ export default function Show({
                                 company: company.id,
                             }}
                             rows={{
-                                name:        'Nombre',
-                                quantity:    'Cantidad',
-                                description: 'Descripción',
+                                name:     'Nombre',
+                                quantity: 'Cantidad',
                             }}
                             values={company.products}
                         />
