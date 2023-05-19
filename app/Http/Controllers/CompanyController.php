@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCompanyRequest;
-use App\Http\Requests\UpdateCompanyRequest;
+use App\Http\Requests\Company\StoreRequest;
+use App\Http\Requests\Company\UpdateRequest;
 use App\Models\Company;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -24,7 +23,7 @@ class CompanyController extends Controller
         return Inertia::render('Company/Create');
     }
 
-    public function store(StoreCompanyRequest $request): RedirectResponse
+    public function store(StoreRequest $request): RedirectResponse
     {
         Company::create($request->validated());
 
@@ -43,7 +42,7 @@ class CompanyController extends Controller
         return Inertia::render('Company/Edit', ['company' => $company]);
     }
 
-    public function update(UpdateCompanyRequest $request, Company $company): RedirectResponse
+    public function update(UpdateRequest $request, Company $company): RedirectResponse
     {
         $company->update($request->validated());
 

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
+use App\Http\Requests\Company\Product\StoreRequest;
+use App\Http\Requests\Company\Product\UpdateRequest;
 use App\Models\Company;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
@@ -18,7 +18,7 @@ class ProductController extends Controller
         return Inertia::render('Company/Product/Create', ['company' => $company]);
     }
 
-    public function store(StoreProductRequest $request, Company $company): RedirectResponse
+    public function store(StoreRequest $request, Company $company): RedirectResponse
     {
         $company->products()->create($request->validated());
 
@@ -41,7 +41,7 @@ class ProductController extends Controller
         ]);
     }
 
-    public function update(UpdateProductRequest $request, Company $company, Product $product): RedirectResponse
+    public function update(UpdateRequest $request, Company $company, Product $product): RedirectResponse
     {
         $product->update($request->validated());
 

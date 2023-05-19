@@ -1,12 +1,19 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Company;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreCompanyRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
+    public function authorize(): bool
+    {
+        $user = $this->user();
+
+        return $user && $user->can('create companies');
+    }
+
     public function rules(): array
     {
         return [

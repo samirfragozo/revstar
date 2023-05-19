@@ -1,12 +1,19 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Company;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateCompanyRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
+    public function authorize(): bool
+    {
+        $user = $this->user();
+
+        return $user && $user->can('update companies');
+    }
+
     public function rules(): array
     {
         $company = $this->route('company');

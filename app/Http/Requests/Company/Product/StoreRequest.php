@@ -1,11 +1,18 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Company\Product;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProductRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
+    public function authorize(): bool
+    {
+        $user = $this->user();
+
+        return $user && $user->can('create products');
+    }
+
     public function rules(): array
     {
         return [

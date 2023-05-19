@@ -19,15 +19,18 @@ export default function Index({
                 <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                         <div className="flex justify-end items-center">
-                            <Link
-                                href={route('companies.create')}
-                                className="px-4 py-2 font-semibold text-white bg-gray-800 rounded-lg shadow-md hover:bg-gray-700"
-                            >
-                                Crear Empresa
-                            </Link>
+                            {auth.permissions.includes('create companies') && (
+                                <Link
+                                    href={route('companies.create')}
+                                    className="px-4 py-2 font-semibold text-white bg-gray-800 rounded-lg shadow-md hover:bg-gray-700"
+                                >
+                                    Crear Empresa
+                                </Link>
+                            )}
                         </div>
 
                         <Table
+                            permissions={auth.permissions}
                             routesKey="companies"
                             rows={{
                                 nit:     'Nit',

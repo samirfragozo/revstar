@@ -31,15 +31,17 @@ export default function Show({
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                     <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                         <div className="flex justify-end items-center">
-                            <Link
-                                href={route('products.edit', {
-                                    company: company.id,
-                                    product: product.id,
-                                })}
-                                className="px-4 py-2 font-semibold text-white bg-gray-800 rounded-lg shadow-md hover:bg-gray-700"
-                            >
-                                Editar Articulo
-                            </Link>
+                            {auth.permissions.includes('update products') && (
+                                <Link
+                                    href={route('products.edit', {
+                                        company: company.id,
+                                        product: product.id,
+                                    })}
+                                    className="px-4 py-2 font-semibold text-white bg-gray-800 rounded-lg shadow-md hover:bg-gray-700"
+                                >
+                                    Editar Articulo
+                                </Link>
+                            )}
                         </div>
 
                         <div className="mt-6 space-y-6">

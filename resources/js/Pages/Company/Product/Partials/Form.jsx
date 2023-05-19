@@ -70,12 +70,14 @@ export default function Form({
                             </div>
 
                             <div className="flex justify-end items-center gap-4">
-                                <Link
-                                    href={route('companies.show', routeId)}
-                                    className="px-4 py-2 font-semibold text-gray-500 hover:text-gray-700"
-                                >
-                                    Cancelar
-                                </Link>
+                                {auth.permissions.includes('show companies') && (
+                                    <Link
+                                        href={route('companies.show', routeId)}
+                                        className="px-4 py-2 font-semibold text-gray-500 hover:text-gray-700"
+                                    >
+                                        Cancelar
+                                    </Link>
+                                )}
 
                                 <PrimaryButton disabled={processing}>{buttonName}</PrimaryButton>
                             </div>

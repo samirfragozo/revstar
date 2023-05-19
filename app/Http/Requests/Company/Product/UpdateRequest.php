@@ -1,11 +1,18 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Company\Product;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateProductRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
+    public function authorize(): bool
+    {
+        $user = $this->user();
+
+        return $user && $user->can('update products');
+    }
+
     public function rules(): array
     {
         return [

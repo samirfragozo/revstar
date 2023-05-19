@@ -2,6 +2,7 @@ import {Link, useForm} from '@inertiajs/react';
 import pluralize       from 'pluralize';
 
 export default function Table({
+    permissions,
     routesKey,
     routesParameters = {},
     rows,
@@ -51,30 +52,38 @@ export default function Table({
                             <Td key={index}>{value[rowKey]}</Td>
                         ))}
                         <Td>
-                            <Link
-                                href={route(`${routesKey}.show`, {
-                                    ...routesParameters,
-                                    [pluralize.singular(routesKey)]: value.id,
-                                })}
-                                className="text-blue-600 hover:text-blue-900 mr-2"
-                            >
-                                Ver
-                            </Link>
-                            <Link
-                                href={route(`${routesKey}.edit`, {
-                                    ...routesParameters,
-                                    [pluralize.singular(routesKey)]: value.id,
-                                })}
-                                className="text-green-600 hover:text-green-900 mr-2"
-                            >
-                                Editar
-                            </Link>
-                            <button
-                                onClick={() => handleDelete(value)}
-                                className="text-red-600 hover:text-red-900"
-                            >
-                                Eliminar
-                            </button>
+                            {permissions.includes(`view ${routesKey}`) && (
+                                <Link
+                                    href={route(`${routesKey}.show`, {
+                                        ...routesParameters,
+                                        [pluralize.singular(routesKey)]: value.id,
+                                    })}
+                                    className="text-blue-600 hover:text-blue-900 mr-2"
+                                >
+                                    Ver
+                                </Link>
+                            )}
+
+                            {permissions.includes(`update ${routesKey}`) && (
+                                <Link
+                                    href={route(`${routesKey}.edit`, {
+                                        ...routesParameters,
+                                        [pluralize.singular(routesKey)]: value.id,
+                                    })}
+                                    className="text-green-600 hover:text-green-900 mr-2"
+                                >
+                                    Editar
+                                </Link>
+                            )}
+
+                            {permissions.includes(`destroy ${routesKey}`) && (
+                                <button
+                                    onClick={() => handleDelete(value)}
+                                    className="text-red-600 hover:text-red-900"
+                                >
+                                    Eliminar
+                                </button>
+                            )}
                         </Td>
                     </tr>
                 ))}
