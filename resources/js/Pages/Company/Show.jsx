@@ -1,12 +1,48 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import {Head, Link}        from '@inertiajs/react';
-import Table               from '@/Pages/Partials/Table.jsx';
+import AuthenticatedLayout   from '@/Layouts/AuthenticatedLayout';
+import {Head, Link, useForm} from '@inertiajs/react';
+import Table                 from '@/Pages/Partials/Table.jsx';
+import {useRef, useState}    from 'react';
+import Modal                 from '@/Components/Modal.jsx';
+import InputLabel            from '@/Components/InputLabel.jsx';
+import TextInput             from '@/Components/TextInput.jsx';
+import InputError            from '@/Components/InputError.jsx';
+import PrimaryButton         from '@/Components/PrimaryButton.jsx';
 
 export default function Show({
     auth,
     company,
 }) {
     const title = `Detalles de la Empresa: ${company.name}`;
+    const emailInput = useRef();
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    const {
+        data,
+        setData,
+        post,
+        processing,
+        reset,
+        errors,
+    } = useForm({
+        email: '',
+    });
+
+    const closeModal = () => {
+        setModalIsOpen(false);
+
+        reset();
+    };
+
+    const handleSendPdf = (e) => {
+        e.preventDefault();
+
+        post(route('products.send-pdf', company.id), {
+            preserveScroll: true,
+            onSuccess: () => closeModal(),
+            onError: () => emailInput.current.focus(),
+            onFinish: () => reset(),
+        });
+    };
 
     const Field = ({
         border = true,
@@ -56,17 +92,26 @@ export default function Show({
                             {auth.permissions.includes('view products') && (
                                 <a
                                     href={route('products.download-pdf', company.id)}
-                                    className="mr-4 px-4 py-2 font-semibold text-white bg-gray-800 rounded-lg shadow-md hover:bg-gray-700"
+                                    className="ml-4 px-4 py-2 font-semibold text-white bg-gray-800 rounded-lg shadow-md hover:bg-gray-700"
                                     target="_blank"
                                 >
                                     Descargar PDF
                                 </a>
                             )}
 
+                            {auth.permissions.includes('view products') && (
+                                <button
+                                    onClick={() => setModalIsOpen(true)}
+                                    className="ml-4 px-4 py-1.5 font-semibold text-white bg-gray-800 rounded-lg shadow-md hover:bg-gray-700"
+                                >
+                                    Enviar PDF
+                                </button>
+                            )}
+
                             {auth.permissions.includes('create products') && (
                                 <Link
                                     href={route('products.create', company.id)}
-                                    className="px-4 py-2 font-semibold text-white bg-gray-800 rounded-lg shadow-md hover:bg-gray-700"
+                                    className="ml-4 px-4 py-2 font-semibold text-white bg-gray-800 rounded-lg shadow-md hover:bg-gray-700"
                                 >
                                     Añadir Artículos
                                 </Link>
@@ -91,6 +136,42 @@ export default function Show({
                     </div>
                 </div>
             </div>
+
+            <Modal show={modalIsOpen} onClose={closeModal}>
+                <form onSubmit={handleSendPdf} className="p-6">
+                    <div>
+                        <InputLabel htmlFor="email" value="Correo electronico" />
+
+                        <TextInput
+                            id="email"
+                            className="mt-1 block w-full"
+                            value={data.email}
+                            onChange={(e) => setData('email', e.target.value)}
+                            ref={emailInput}
+                            required
+                            isFocused
+                        />
+
+                        <InputError className="mt-2" message={errors.email} />
+                    </div>
+
+                    <div className="mt-6 flex justify-end">
+                        <button
+                            onClick={closeModal}
+                            className="px-4 py-2 font-semibold text-gray-500 hover:text-gray-700"
+                        >
+                            Cancel
+                        </button>
+
+                        <PrimaryButton
+                            className="ml-3"
+                            disabled={processing}
+                        >
+                            Enviar PDF
+                        </PrimaryButton>
+                    </div>
+                </form>
+            </Modal>
         </AuthenticatedLayout>
     );
 }
