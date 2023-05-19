@@ -32,7 +32,7 @@ class SendPdf extends Mailable
     public function attachments(): array
     {
         return [
-            Attachment::fromPath(storage_path($this->pdfPath))->as('inventario.pdf')->withMime('application/pdf'),
+            Attachment::fromPath($this->pdfPath)->as('inventario.pdf')->withMime('application/pdf'),
         ];
     }
 }

@@ -73,7 +73,7 @@ class ProductController extends Controller
         $pdf      = Pdf::loadView('products.pdf', compact('products'));
         $pdfPath  = '/tmp/products.pdf';
 
-        $pdf->save(storage_path($pdfPath));
+        $pdf->save($pdfPath);
 
         Mail::to($request->input('email'))->send(new SendPdf($company->name, $pdfPath));
 
