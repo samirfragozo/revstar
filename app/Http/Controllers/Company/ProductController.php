@@ -71,7 +71,7 @@ class ProductController extends Controller
     {
         $products = $company->products()->select('name', 'description', 'quantity')->get();
         $pdf      = Pdf::loadView('products.pdf', compact('products'));
-        $pdfPath  = 'app/temp/products.pdf';
+        $pdfPath  = '/tmp/products.pdf';
 
         $pdf->save(storage_path($pdfPath));
 
