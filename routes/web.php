@@ -27,6 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::resource('/companies', CompanyController::class);
 
     Route::prefix('/companies/{company}')->group(function() {
+        Route::get('/products/download-pdf', [ProductController::class, 'downloadPdf'])->name('products.download-pdf');
         Route::resource('/products', ProductController::class)->except(['index']);
     });
 });

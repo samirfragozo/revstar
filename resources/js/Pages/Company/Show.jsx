@@ -52,14 +52,26 @@ export default function Show({
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 mt-12">
                     <div className="flex justify-between items-center">
                         <h2 className="font-semibold text-xl text-gray-800 leading-tight">Inventario</h2>
-                        {auth.permissions.includes('create products') && (
-                            <Link
-                                href={route('products.create', company.id)}
-                                className="px-4 py-2 font-semibold text-white bg-gray-800 rounded-lg shadow-md hover:bg-gray-700"
-                            >
-                                Añadir Artículos
-                            </Link>
-                        )}
+                        <div>
+                            {auth.permissions.includes('view products') && (
+                                <a
+                                    href={route('products.download-pdf', company.id)}
+                                    className="mr-4 px-4 py-2 font-semibold text-white bg-gray-800 rounded-lg shadow-md hover:bg-gray-700"
+                                    target="_blank"
+                                >
+                                    Descargar PDF
+                                </a>
+                            )}
+
+                            {auth.permissions.includes('create products') && (
+                                <Link
+                                    href={route('products.create', company.id)}
+                                    className="px-4 py-2 font-semibold text-white bg-gray-800 rounded-lg shadow-md hover:bg-gray-700"
+                                >
+                                    Añadir Artículos
+                                </Link>
+                            )}
+                        </div>
                     </div>
 
                     <div className="bg-white shadow sm:rounded-lg">
@@ -70,8 +82,9 @@ export default function Show({
                                 company: company.id,
                             }}
                             rows={{
-                                name:     'Nombre',
-                                quantity: 'Cantidad',
+                                name:        'Nombre',
+                                quantity:    'Cantidad',
+                                description: 'Descripción',
                             }}
                             values={company.products}
                         />

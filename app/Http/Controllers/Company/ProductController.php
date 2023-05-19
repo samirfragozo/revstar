@@ -7,6 +7,7 @@ use App\Http\Requests\Company\Product\StoreRequest;
 use App\Http\Requests\Company\Product\UpdateRequest;
 use App\Models\Company;
 use App\Models\Product;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -53,5 +54,14 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('companies.show', $company->getKey());
+    }
+
+    public function downloadPdf(Company $company): \Illuminate\Http\Response
+    {
+        $products = $company->products()->select('name', 'description', 'quantity')->get();
+
+        $pdf = Pdf::loadView('products.pdf', compact('products'));
+
+        return $pdf->download('inventario.pdf');
     }
 }
